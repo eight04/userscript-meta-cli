@@ -1,0 +1,35 @@
+{
+  "name": "userscript-meta-cli",
+  "version": "0.0.0",
+  "description": "A CLI build tool for userscript metadata block",
+  "keywords": [
+    "userscript",
+    "build",
+    "cli"
+  ],
+  "homepage": "https://github.com/eight04/userscript-meta-cli",
+  "bugs": "https://github.com/eight04/userscript-meta-cli/issues",
+  "license": "MIT",
+  "author": "eight04 <eight04@gmail.com>",
+  "bin": {
+    "userscript-meta": "cli.js"
+  },
+  "main": "index.js",
+  "repository": "eight04/userscript-meta-cli",
+  "scripts": {
+    "test": "eslint **/*.js && mocha",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags"
+  },
+  "devDependencies": {
+    "eslint": "^3.14.1",
+    "mocha": "^3.2.0",
+    "proxyquire": "^1.7.11",
+    "sinon": "^2.0.0"
+  },
+  "dependencies": {
+    "fs-extra": "^2.1.2",
+    "neodoc": "^1.4.0",
+    "userscript-meta": "^1.0.1"
+  }
+}

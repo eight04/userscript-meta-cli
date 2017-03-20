@@ -19,7 +19,7 @@
   "scripts": {
     "test": "eslint **/*.js && mocha",
     "preversion": "npm test",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags && npm publish"
   },
   "devDependencies": {
     "eslint": "^3.14.1",

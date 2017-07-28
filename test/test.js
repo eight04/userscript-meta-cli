@@ -22,13 +22,16 @@ describe("packageToMeta", () => {
 		assert.deepEqual(ptm({name: "a", title: "b"}), {name: "b"});
 	});
 	
-	it("homepageURL", () => {
+	it("homepageURL/supportURL", () => {
 		// homepage
 		assert.deepEqual(ptm({homepage: "a"}), {homepageURL: "a"});
 		// repository github
 		assert.deepEqual(
 			ptm({repository: "a/b"}),
-			{homepageURL: "https://github.com/a/b"}
+			{
+				homepageURL: "https://github.com/a/b",
+				supportURL: "https://github.com/a/b/issues"
+			}
 		);
 		// gist
 		assert.deepEqual(
@@ -38,12 +41,18 @@ describe("packageToMeta", () => {
 		// bitbucket
 		assert.deepEqual(
 			ptm({repository: "bitbucket:a/b"}),
-			{homepageURL: "https://bitbucket.org/a/b"}
+			{
+				homepageURL: "https://bitbucket.org/a/b",
+				supportURL: "https://bitbucket.org/a/b/issues"
+			}
 		);
 		// gitlab
 		assert.deepEqual(
 			ptm({repository: "gitlab:a/b"}),
-			{homepageURL: "https://gitlab.com/a/b"}
+			{
+				homepageURL: "https://gitlab.com/a/b",
+				supportURL: "https://gitlab.com/a/b/issues"
+			}
 		);
 		// other svn
 		assert.deepEqual(

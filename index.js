@@ -35,7 +35,15 @@ function packageToMeta(pkg = require(process.cwd() + "/package.json")) {
 		}
 	}
 	if (pkg.repository && !target.homepageURL) {
-		target.homepageURL = repositoryToHomepage(pkg.repository);
+		if (typeof pkg.repository == "string") {
+			target.homepageURL = repositoryToHomepage(pkg.repository);
+		} else if (pkg.repository.url) {
+			target.homepageURL = pkg.repository.url;
+		}
+	}
+	var support;
+	if (typeof pkg.repository == "string" && !target.supportURL && (support = repositoryToSupport(pkg.repository))) {
+		target.supportURL = support;
 	}
 	if (pkg.engines) {
 		target.compatible = [];
@@ -74,14 +82,16 @@ var REPOS = {
 };
 
 function repositoryToHomepage(repository) {
-	if (typeof repository == "string") {
-		var match
-		if ((match = repository.match(/^(?:(gist|bitbucket|gitlab):)?(.+)/))) {
-			return REPOS[match[1] || "github"] + match[2];
-		}
-	} else {
-		return repository.url;
+	var match = repository.match(/^(?:(gist|bitbucket|gitlab):)?(.+)/);
+	return REPOS[match[1] || "github"] + match[2];
+}
+
+function repositoryToSupport(repository) {
+	// no issues for gist
+	if (repository.startsWith("gist:")) {
+		return null;
 	}
+	return repositoryToHomepage(repository) + "/issues";
 }
 
 var METADATA_BLOCK_REGEX = /\/\/ ==UserScript==[^]+?\/\/ ==\/UserScript==/i;

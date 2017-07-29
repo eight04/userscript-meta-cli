@@ -1,6 +1,6 @@
 {
   "name": "userscript-meta-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A CLI build tool for userscript metadata block",
   "keywords": [
     "userscript",

@@ -69,5 +69,10 @@ Todos
 
 Changelog
 ---------
+* 0.2.0 (Jul 29, 2017)
+	- Add: generate `supportURL` from `repository`.
+	- Add: warning message to `--update` help screen.
+	- Fix: new line issue with `--update`.
+	- Fix: doesn't work under linux due to CRLF issue.
 * 0.1.0 (Mar 19, 2017)
 	- First release.

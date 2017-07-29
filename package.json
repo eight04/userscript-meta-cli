@@ -19,9 +19,11 @@
   "scripts": {
     "test": "eslint **/*.js && mocha",
     "preversion": "npm test",
-    "postversion": "git push --follow-tags && npm publish"
+    "postversion": "git push --follow-tags && npm publish",
+    "prepack": "crlf --set=LF cli.js"
   },
   "devDependencies": {
+    "crlf": "^1.1.1",
     "eslint": "^3.14.1",
     "mocha": "^3.2.0",
     "proxyquire": "^1.7.11",

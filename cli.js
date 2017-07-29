@@ -61,7 +61,7 @@ if (args["--update"]) {
 function updateFile(file, meta) {
 	var text = fs.readFileSync(file, "utf8"),	
 		match = text.match(METADATA_BLOCK_REGEX),
-		out = text.slice(0, match.index) + userscriptMeta.stringify(meta) + text.slice(match.index + match[0].length);
+		out = text.slice(0, match.index) + userscriptMeta.stringify(meta).trim() + text.slice(match.index + match[0].length);
 		
 	fs.outputFileSync(file, out, "utf8");
 }

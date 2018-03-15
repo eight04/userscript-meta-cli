@@ -4,7 +4,7 @@ var {describe, it} = require("mocha"),
 	assert = require("assert");
 	
 var fsStub = {},
-	{packageToMeta, fileToMeta} = proxyquire("../index", {"fs": fsStub});
+	{packageToMeta, fileToMeta} = proxyquire("../index", {"fs-extra": fsStub});
 	
 describe("packageToMeta", () => {
 	var ptm = packageToMeta;

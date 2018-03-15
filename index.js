@@ -154,6 +154,9 @@ function init(args) {
 	if (!meta.grant) {
 		meta.grant = "none";
 	}
+	if (noMatchPattern(meta)) {
+		meta.include = "*";
+	}
 	if (args["--update"]) {
 		updateFile(args["--update"], meta);
 	} else {
@@ -164,12 +167,18 @@ function init(args) {
 			process.stdout.write(out);
 		}
 	}
+	
 	function updateFile(file, meta) {
 		var text = fs.readFileSync(file, "utf8"),	
 			match = text.match(METADATA_BLOCK_REGEX),
 			out = text.slice(0, match.index) + userscriptMeta.stringify(meta).trim() + text.slice(match.index + match[0].length);
 			
 		fs.outputFileSync(file, out, "utf8");
+	}
+	
+	function noMatchPattern(meta) {
+		return (!meta.include || Array.isArray(meta.include) && !meta.include.length) &&
+			(!meta.match || Array.isArray(meta.match) && !meta.match.length)
 	}
 }
 exports.init = init;

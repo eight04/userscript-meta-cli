@@ -24,14 +24,14 @@
   },
   "devDependencies": {
     "crlf": "^1.1.1",
-    "eslint": "^3.14.1",
-    "mocha": "^3.2.0",
-    "proxyquire": "^1.7.11",
-    "sinon": "^2.0.0"
+    "eslint": "^4.18.2",
+    "mocha": "^5.0.4",
+    "proxyquire": "^2.0.0",
+    "sinon": "^4.4.6"
   },
   "dependencies": {
-    "fs-extra": "^2.1.2",
-    "neodoc": "^1.4.0",
+    "fs-extra": "^5.0.0",
+    "neodoc": "^2.0.0",
     "userscript-meta": "^1.0.1"
   }
 }

@@ -69,6 +69,9 @@ Todos
 
 Changelog
 ---------
+* 0.3.0 (Mar 16, 2018)
+	- Add: `@include *` when there is no include/match rule is found.
+	- Add: a better way to find `package.json`. Now the tool would read `package.json` file from the parent/ancestor folder.
 * 0.2.0 (Jul 29, 2017)
 	- Add: generate `supportURL` from `repository`.
 	- Add: warning message to `--update` help screen.

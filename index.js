@@ -1,3 +1,7 @@
+const fs = require("fs-extra");
+const userscriptMeta = require("userscript-meta");
+const path = require("path");
+
 function packageToMeta(pkg = require(process.cwd() + "/package.json")) {
 	var target = {};
 	if (pkg.name) {
@@ -97,9 +101,6 @@ function repositoryToSupport(repository) {
 var METADATA_BLOCK_REGEX = /\/\/ ==UserScript==[^]+?\/\/ ==\/UserScript==/i;
 exports.METADATA_BLOCK_REGEX = METADATA_BLOCK_REGEX;
 
-var fs = require("fs"),
-	userscriptMeta = require("userscript-meta");
-
 function fileToMeta(file) {
 	var text = fs.readFileSync(file, "utf8"),
 		match = text.match(METADATA_BLOCK_REGEX);
@@ -109,3 +110,66 @@ function fileToMeta(file) {
 	return userscriptMeta.parse(match[0]);
 }
 exports.fileToMeta = fileToMeta;
+
+function isFile(file) {
+	try {
+		fs.accessSync(file);
+	} catch (err) {
+		return false;
+	}
+	return true;
+}
+
+function findPackagePath() {
+	let dir = path.resolve();
+	while (!isFile(path.join(dir, "package.json"))) {
+		const parentDir = path.dirname(dir);
+		if (parentDir == dir) {
+			throw new Error("Cannot find package.json");
+		}
+		dir = parentDir;
+	}
+	return path.join(dir, "package.json");
+}
+exports.findPackagePath = findPackagePath;
+
+function init(args) {
+	var meta = {};
+	if (!args["--no-package"]) {
+		Object.assign(meta, packageToMeta(findPackagePath()));
+	}
+	if (args["--read"]) {
+		for (var file of args["--read"]) {
+			let newMeta;
+			if (file.endsWith("package.json")) {
+				newMeta = packageToMeta(file);
+			} else if (file.endsWith(".json")) {
+				newMeta = JSON.parse(fs.readFileSync(file));
+			} else {
+				newMeta = fileToMeta(file);
+			}
+			Object.assign(meta, newMeta);
+		}
+	}
+	if (!meta.grant) {
+		meta.grant = "none";
+	}
+	if (args["--update"]) {
+		updateFile(args["--update"], meta);
+	} else {
+		var out = args["--json"] ? JSON.stringify(meta, null, 2) : userscriptMeta.stringify(meta);
+		if (args["--output"]) {
+			fs.outputFileSync(args["--output"], out);
+		} else {
+			process.stdout.write(out);
+		}
+	}
+	function updateFile(file, meta) {
+		var text = fs.readFileSync(file, "utf8"),	
+			match = text.match(METADATA_BLOCK_REGEX),
+			out = text.slice(0, match.index) + userscriptMeta.stringify(meta).trim() + text.slice(match.index + match[0].length);
+			
+		fs.outputFileSync(file, out, "utf8");
+	}
+}
+exports.init = init;

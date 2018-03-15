@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const userscriptMeta = require("userscript-meta");
 const path = require("path");
 
-function packageToMeta(pkg = require(process.cwd() + "/package.json")) {
+function packageToMeta(pkg) {
 	var target = {};
 	if (pkg.name) {
 		target.name = pkg.name;
@@ -63,6 +63,11 @@ function packageToMeta(pkg = require(process.cwd() + "/package.json")) {
 	return target;
 }
 exports.packageToMeta = packageToMeta;
+
+function packageFileToMeta(file) {
+	const pkg = JSON.parse(fs.readFileSync(file));
+	return packageToMeta(pkg);
+}
 
 function personToString(people) {
 	if (typeof people == "string") {
@@ -136,13 +141,13 @@ exports.findPackagePath = findPackagePath;
 function init(args) {
 	var meta = {};
 	if (!args["--no-package"]) {
-		Object.assign(meta, packageToMeta(findPackagePath()));
+		Object.assign(meta, packageFileToMeta(findPackagePath()));
 	}
 	if (args["--read"]) {
 		for (var file of args["--read"]) {
 			let newMeta;
 			if (file.endsWith("package.json")) {
-				newMeta = packageToMeta(file);
+				newMeta = packageFileToMeta(file);
 			} else if (file.endsWith(".json")) {
 				newMeta = JSON.parse(fs.readFileSync(file));
 			} else {

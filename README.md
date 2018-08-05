@@ -99,6 +99,10 @@ Todos
 Changelog
 ---------
 
+* 0.4.2 (Aug 5, 2018)
+
+  - Fix: missing cli.
+
 * 0.4.1 (Aug 5, 2018)
 
   - Fix: missing `files` in package.json.

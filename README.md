@@ -1,5 +1,9 @@
 userscript-meta-cli
 ===================
+
+[![Build Status](https://travis-ci.org/eight04/userscript-meta-cli.svg?branch=master)](https://travis-ci.org/eight04/userscript-meta-cli)
+[![codecov](https://codecov.io/gh/eight04/userscript-meta-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/eight04/userscript-meta-cli)
+
 A CLI build tool for userscript metadata block
 
 Features
@@ -54,7 +58,7 @@ Reconized fields in package.json
 * engines - compatible
 
 Other fields like `include`, `exclude`, etc, could be set in `userscript` field.
-```
+```json
 {
 	"userscript": {
 		"include": ["http://example.com/*", "http://example2.com/*"]
@@ -62,6 +66,30 @@ Other fields like `include`, `exclude`, etc, could be set in `userscript` field.
 }
 ```
 The metadata defined in `userscript` would overwrite the fields in package.json root.
+
+API
+----
+
+### getMeta
+
+```js
+const metaObject = getMeta({
+  findPackage?: Boolean,
+  readFiles?: Array<String>
+});
+```
+
+If `findPackage` is `true` then extract metadata from `package.json`. Default: `true`.
+
+`readFiles` is an array of filenames.
+
+### stringify
+
+The `stringify` method of [userscript-meta](https://www.npmjs.com/package/userscript-meta).
+
+### parse
+
+The `parse` method of [userscript-meta](https://www.npmjs.com/package/userscript-meta).
 
 Todos
 -----

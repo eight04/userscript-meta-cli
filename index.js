@@ -139,29 +139,10 @@ function findPackagePath() {
 exports.findPackagePath = findPackagePath;
 
 function init(args) {
-	var meta = {};
-	if (!args["--no-package"]) {
-		Object.assign(meta, packageFileToMeta(findPackagePath()));
-	}
-	if (args["--read"]) {
-		for (var file of args["--read"]) {
-			let newMeta;
-			if (file.endsWith("package.json")) {
-				newMeta = packageFileToMeta(file);
-			} else if (file.endsWith(".json")) {
-				newMeta = JSON.parse(fs.readFileSync(file));
-			} else {
-				newMeta = fileToMeta(file);
-			}
-			Object.assign(meta, newMeta);
-		}
-	}
-	if (!meta.grant) {
-		meta.grant = "none";
-	}
-	if (noMatchPattern(meta)) {
-		meta.include = "*";
-	}
+  const meta = getMeta({
+    findPackage: !args["--no-package"],
+    readFiles: args["--read"]
+  });
 	if (args["--update"]) {
 		updateFile(args["--update"], meta);
 	} else {
@@ -180,10 +161,39 @@ function init(args) {
 			
 		fs.outputFileSync(file, out, "utf8");
 	}
-	
+}
+exports.init = init;
+
+function getMeta({findPackage = true, readFiles = []} = {}) {
+  const meta = {};
+  if (findPackage) {
+    Object.assign(meta, packageFileToMeta(findPackagePath()));
+  }
+  for (const file of readFiles) {
+    let newMeta;
+    if (file.endsWith("package.json")) {
+      newMeta = packageFileToMeta(file);
+    } else if (file.endsWith(".json")) {
+      newMeta = JSON.parse(fs.readFileSync(file));
+    } else {
+      newMeta = fileToMeta(file);
+    }
+    Object.assign(meta, newMeta);
+  }
+	if (!meta.grant) {
+		meta.grant = "none";
+	}
+	if (noMatchPattern(meta)) {
+		meta.include = "*";
+	}
+  return meta;
+  
 	function noMatchPattern(meta) {
 		return (!meta.include || Array.isArray(meta.include) && !meta.include.length) &&
 			(!meta.match || Array.isArray(meta.match) && !meta.match.length)
 	}
 }
-exports.init = init;
+exports.getMeta = getMeta;
+
+exports.parse = userscriptMeta.parse;
+exports.stringify = userscriptMeta.stringify;

@@ -19,8 +19,9 @@
   "scripts": {
     "test": "eslint **/*.js && nyc --reporter=html mocha",
     "preversion": "npm test",
+    "version": "npm run build && git add .",
     "postversion": "git push --follow-tags && npm publish",
-    "prepack": "crlf --set=LF cli.js"
+    "build": "crlf --set=LF cli.js"
   },
   "devDependencies": {
     "crlf": "^1.1.1",

@@ -97,13 +97,24 @@ Todos
 
 Changelog
 ---------
+
+* 0.4.0 (Aug 5, 2018)
+
+  - Add: `getMeta` API.
+  - Add: Node dependency `node>=7`.
+
 * 0.3.0 (Mar 16, 2018)
+
 	- Add: `@include *` when there is no include/match rule is found.
 	- Add: a better way to find `package.json`. Now the tool would read `package.json` file from the parent/ancestor folder.
+  
 * 0.2.0 (Jul 29, 2017)
+
 	- Add: generate `supportURL` from `repository`.
 	- Add: warning message to `--update` help screen.
 	- Fix: new line issue with `--update`.
 	- Fix: doesn't work under linux due to CRLF issue.
+  
 * 0.1.0 (Mar 19, 2017)
+
 	- First release.

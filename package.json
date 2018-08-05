@@ -1,6 +1,6 @@
 {
   "name": "userscript-meta-cli",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A CLI build tool for userscript metadata block",
   "keywords": [
     "userscript",
@@ -15,7 +15,9 @@
     "userscript-meta": "cli.js"
   },
   "main": "index.js",
-  "files": ["cli.js"],
+  "files": [
+    "cli.js"
+  ],
   "repository": "eight04/userscript-meta-cli",
   "scripts": {
     "test": "eslint **/*.js && nyc --reporter=html mocha",

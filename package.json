@@ -17,7 +17,7 @@
   "main": "index.js",
   "repository": "eight04/userscript-meta-cli",
   "scripts": {
-    "test": "eslint **/*.js && mocha",
+    "test": "eslint **/*.js && nyc --reporter=html mocha",
     "preversion": "npm test",
     "postversion": "git push --follow-tags && npm publish",
     "prepack": "crlf --set=LF cli.js"
@@ -26,6 +26,7 @@
     "crlf": "^1.1.1",
     "eslint": "^4.18.2",
     "mocha": "^5.0.4",
+    "nyc": "^12.0.2",
     "proxyquire": "^2.0.0",
     "sinon": "^4.4.6"
   },
@@ -33,5 +34,8 @@
     "fs-extra": "^5.0.0",
     "neodoc": "^2.0.0",
     "userscript-meta": "^1.0.1"
+  },
+  "engines": {
+    "node": ">=6"
   }
 }

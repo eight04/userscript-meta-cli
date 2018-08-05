@@ -1,5 +1,8 @@
 userscript-meta-cli
 ===================
+
+[![Build Status](https://travis-ci.org/eight04/userscript-meta-cli.svg?branch=master)](https://travis-ci.org/eight04/userscript-meta-cli)
+
 A CLI build tool for userscript metadata block
 
 Features

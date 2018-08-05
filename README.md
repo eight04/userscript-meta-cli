@@ -3,6 +3,7 @@ userscript-meta-cli
 
 [![Build Status](https://travis-ci.org/eight04/userscript-meta-cli.svg?branch=master)](https://travis-ci.org/eight04/userscript-meta-cli)
 [![codecov](https://codecov.io/gh/eight04/userscript-meta-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/eight04/userscript-meta-cli)
+[![install size](https://packagephobia.now.sh/badge?p=userscript-meta-cli)](https://packagephobia.now.sh/result?p=userscript-meta-cli)
 
 A CLI build tool for userscript metadata block
 
@@ -97,6 +98,10 @@ Todos
 
 Changelog
 ---------
+
+* 0.4.1 (Aug 5, 2018)
+
+  - Fix: missing `files` in package.json.
 
 * 0.4.0 (Aug 5, 2018)
 

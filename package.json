@@ -15,6 +15,7 @@
     "userscript-meta": "cli.js"
   },
   "main": "index.js",
+  "files": [],
   "repository": "eight04/userscript-meta-cli",
   "scripts": {
     "test": "eslint **/*.js && nyc --reporter=html mocha",
